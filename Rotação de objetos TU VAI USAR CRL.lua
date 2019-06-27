@@ -74,4 +74,7 @@ function love.update(dt)
 end
  
 -- agora só precisa LIMITAR ESSA DESGRAÇA
+-- acredito que quando abter na parede deva retornar para as outras bolas num angulo de 90 
+-- evitar ao maximo que a boliha bata mais que uma vez na parede
+
 
