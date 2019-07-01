@@ -1,0 +1,71 @@
+
+function love.load()
+	--- circulo
+	button = {}
+	button.x = 200
+	button.y = 200
+	button.size = 50
+	---
+
+	pontos = 0
+	tempo = 0
+
+	--- quadrado
+	ClickAndLose = {}
+		ClickAndLose.x = 400
+		ClickAndLose.y = 500
+		ClickAndLose.lado = 50
+	---
+
+	myFont = love.graphics.newFont( 40 )
+
+	perder = false
+	imagemPerdeu = love.graphics.newImage( "game over.jpg" )
+
+end
+
+function love.update( dt )
+
+
+end
+
+function love.draw()
+
+	local largura = love.graphics.getWidth()
+	local altura = love.graphics.getHeight()
+
+	love.graphics.setColor( 0, 0, 255 )
+	love.graphics.circle( "fill", button.x, button.y, button.size)
+
+	love.graphics.rectangle( "fill", ClickAndLose.x, ClickAndLose.y, ClickAndLose.lado, ClickAndLose.lado)
+
+	love.graphics.setFont(myFont)
+
+	love.graphics.setColor(255, 255, 255)
+	love.graphics.print( pontos )
+
+
+	if perder then
+			for i = 0, love.graphics.getWidth() / imagemPerdeu:getWidth() do
+				for j = 0, love.graphics.getHeight() / imagemPerdeu:getHeight() do
+					love.graphics.draw(imagemPerdeu, i * imagemPerdeu:getWidth(), j * imagemPerdeu:getHeight())
+				end
+			end
+	end
+end
+
+function love.mousepressed( x, y, b, istouch)
+	if b == 1 and distanciaPontos( button.x, button.y, love.mouse.getX(), love.mouse.getY()) < button.size then
+			pontos = pontos + 1
+			button.x = math.random(button.size, love.graphics.getWidth() - button.size)
+			button.y = math.random(button.size, love.graphics.getHeight() - button.size)
+
+		elseif distanciaPontos( ClickAndLose.x, ClickAndLose.y, love.mouse.getX(), love.mouse.getY()) < ClickAndLose.lado then
+			perder = true
+		end
+
+end
+
+function distanciaPontos( x1, x2, y1, y2 )
+	return math.sqrt(( y2 - y1 )^2 - ( x2 - x1 )^2)
+end
