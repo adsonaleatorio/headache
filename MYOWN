@@ -72,3 +72,25 @@ end
 function distanciaPontos( x1, x2, y1, y2 )
 	return math.sqrt(( y2 - y1 )^2 - ( x2 - x1 )^2)
 end
+
+function MudaFormas()
+
+	formas = {
+			quadrado = love.graphics.rectangle( "fill", ClickAndLose.x, ClickAndLose.y, ClickAndLose.lado, ClickAndLose.lado),
+			circulo = love.graphics.circle( "fill", ClickAndLose.x, ClickAndLose.y, ClickAndLose.lado),
+			retangulo = love.graphics.rectangle( "fill", ClickAndLose.x, ClickAndLose.y, ClickAndLose.lado + 20, ClickAndLose.lado),
+			}
+
+	-- agora so tem que fazer essa função andar pra variar as imagens
+end
+
+function mudaCores()
+
+	cores = {
+		amarelo = love.graphics.setColor( 255, 255, 0 ),
+		vermelho = love.graphics.setColor( 255, 0, 0 ),
+		azul = love.graphics.setColor( 0, 0, 255 )
+	}
+
+end
+
