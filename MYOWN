@@ -103,5 +103,15 @@ function love.load()
 	function distanciaPontos( x1, x2, y1, y2 )
 		return math.sqrt(( y2 - y1 )^2 - ( x2 - x1 )^2)
 	end
+	
+	if (ClickAndLose.x + 1) >= 100 and (ClickAndLose.x - 1) <= 700 then -- aqui a condição de movimento
+			ClickAndLose.x = ClickAndLose.x - ((300 * dt) * w)
+		elseif (ClickAndLose.x) > 100 then
+			w = w * (-1)
+			ClickAndLose.x = 100
+		elseif (ClickAndLose.x) < 700 then
+			w = w * (-1)
+			ClickAndLose.x = 700
+		end
 
 
