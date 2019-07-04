@@ -1,7 +1,6 @@
 
 
 
--- YOU ARE ALONE
 function love.load()
 		--- circulo
 		button = {}
