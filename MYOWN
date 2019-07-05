@@ -1,46 +1,59 @@
-
 function love.load()
-		  button = {}
-			  button.x = 400
-			  button.y = 200
-			  button.size = 100
-
+		button = {
+			x = 400,
+			y = 200,
+			size = 100,
+			w1 = 1,
+			w2 = 1,
+			}
 			pontuacao = 0
 			timer = 10
 			start = 1
 
 
 			--- quadrado
-			ClickAndLose = {}
-				ClickAndLose.x = 500
-				ClickAndLose.y = 500
-				ClickAndLose.lado = 200
+			a1 = {
+				x = 500,
+				y = 500,
+				lado = 200,
+				w1 = 1,
+				w2 = 1,
+				}
 			---
 
 
 			------Circulo2
-			otoCircle = {}
-				otoCircle.x = 900
-				otoCircle.y = 100
-				otoCircle.size = 100
+			a2 = {
+				x = 900,
+				y = 100,
+				size = 100,
+				w1 = 1,
+				w2 = 1,
+			}
 			-----------------
 
 			-----Circulo 3
-			redondo = {}
-				redondo.x = 100
-				redondo.y = 900
-				redondo.size = 100
+			a3 = {
+				x = 100,
+				y = 900,
+				size = 100,
+				w1 = 1,
+				w2 = 1,
+			}
 			-------------
 
 			-----Quadrado 2
-			naoCirculo = {}
-				naoCirculo.x = 300
-				naoCirculo.y = 300
-				naoCirculo.lado = 200
+			a4 = {
+				x = 300,
+				y = 300,
+				lado = 200,
+				w1 = 1,
+				w2 = 1,
+			}
 			---------------
 
 		perder = false
-			imagemPerdeu = love.graphics.newImage( "ovee.jpg" ) -- vai printar essa imagem na tela
+			imagemPerdeu = love.graphics.newImage( "imagens/lose.jpg" ) -- vai printar essa imagem na tela
 				dimensoes = love.graphics.newQuad(0, 0, 1000, 1080, imagemPerdeu:getWidth(), imagemPerdeu:getHeight())
 
 
@@ -66,39 +79,136 @@ function love.load()
 		  end
 
 		------ circulo
-		if button.y <= (altura - 100) and button.y >= 100 then   --- faz o circulo se mover pra cima
-			button.y = button.y - 100 * dt
-		end
+			if button.x + 1 >= 100 and button.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				button.x = button.x - 350 * dt * button.w1
 
-			if button.x <= 700 and button.x >= 100 then
-				button.x = button.x + 100 * dt
+				if button.x < 100 then
+					button.x = 100
+					button.w1 = button.w1 * (-1)
+				end
+				if button.x > (largura - 100) then
+					button.x = (largura - 100)
+					button.w1 = button.w1 * (-1)
+				end
+			end
+			if button.y + 1 >= 20 and button.y -1 <= (altura - 20) then -- aqui a condição de movimento
+				button.y = button.y - 350 * dt * button.w2
+
+				if button.y < 20 then
+					button.y = 20
+					button.w2 = button.w2 * (-1)
+				end
+				if button.y > (altura - 20) then
+					button.y = (altura - 20)
+					button.w2 = button.w2 * (-1)
+				end
 			end
 		--------------
 
 			-------- quadrado
-			if ClickAndLose.x >= 100 and ClickAndLose.x < (largura - 100) then -- aqui a condição de movimento
-				ClickAndLose.x = ClickAndLose.x - 100 * dt
+			if a1.x + 1 >= 100 and a1.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				a1.x = a1.x - 500 * dt * a1.w1
 
-				if ClickAndLose.x == 100 then
-					ClickAndLose.x = ClickAndLose.x + 100*dt
+				if a1.x < 100 then
+					a1.x = 100
+					a1.w1 = a1.w1 * (-1)
+				end
+				if a1.x > (largura - 100) then
+					a1.x = (largura - 100)
+					a1.w1 = a1.w1 * (-1)
+				end
+			end
+			if a1.y + 1 >= 20 and a1.y -1 <= (altura - 20) then -- aqui a condição de movimento
+				a1.y = a1.y - 500 * dt * a1.w2
+
+				if a1.y < 20 then
+					a1.y = 20
+					a1.w2 = a1.w2 * (-1)
+				end
+				if a1.y > (altura - 20) then
+					a1.y = (altura - 20)
+					a1.w2 = a1.w2 * (-1)
 				end
 			end
 			-----------------
 
 			---------CirculoAmarelo
-			if otoCircle.y < altura - 100 and otoCircle.y >= 100 then
-				otoCircle.y = otoCircle.y - 100 * dt
+			if a2.x + 1 >= 100 and a2.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				a2.x = a2.x - 500 * dt * a2.w1
+
+				if a2.x < 100 then
+					a2.x = 100
+					a2.w1 = a2.w1 * (-1)
+				end
+				if a2.x > (largura - 100) then
+					a2.x = (largura - 100)
+					a2.w1 = a2.w1 * (-1)
+				end
+			end
+			if a2.y + 1 >= 20 and a2.y -1 <= (altura - 20) then -- aqui a condição de movimento
+				a2.y = a2.y - 1200 * dt * a2.w2
+
+				if a2.y < 20 then
+					a2.y = 20
+					a2.w2 = a2.w2 * (-1)
+				end
+				if a2.y > (altura - 20) then
+					a2.y = (altura - 20)
+					a2.w2 = a2.w2 * (-1)
+				end
 			end
 			------------
 
 			---------circulo Rosa
-			if redondo.x >= 100 and redondo.x <= (largura - 100) then
-				redondo.x = redondo.x + 100 * dt
+			if a3.x + 1 >= 100 and a3.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				a3.x = a3.x - 500 * dt * a3.w1
+
+				if a3.x < 100 then
+					a3.x = 100
+					a3.w1 = a3.w1 * (-1)
+				end
+				if a3.x > (largura - 100) then
+					a3.x = (largura - 100)
+					a3.w1 = a3.w1 * (-1)
+				end
+			end
+			if a3.y + 1 >= 20 and a3.y -1 <= (altura - 20) then -- aqui a condição de movimento
+				a3.y = a3.y - 200 * dt * a3.w2
+
+				if a3.y < 20 then
+					a3.y = 20
+					a3.w2 = a3.w2 * (-1)
+				end
+				if a3.y > (altura - 20) then
+					a3.y = (altura - 20)
+					a3.w2 = a3.w2 * (-1)
+				end
 			end
 
 			--------- quadrado Amarelo
-			if naoCirculo.x < largura - 100 and naoCirculo.x > 100 then
-				naoCirculo.x = naoCirculo.x + 100 * dt
+			if a4.x + 1 >= 100 and a4.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				a4.x = a4.x - 500 * dt * a4.w1
+
+				if a4.x < 100 then
+					a4.x = 100
+					a4.w1 = a4.w1 * (-1)
+				end
+				if a4.x > (largura - 100) then
+					a4.x = (largura - 100)
+					a4.w1 = a4.w1 * (-1)
+				end
+			end
+			if a4.y + 1 >= 20 and a4.y -1 <= (altura - 20) then -- aqui a condição de movimento
+				a4.y = a4.y - 500 * dt * a4.w2
+
+				if a4.y < 20 then
+					a4.y = 20
+					a4.w2 = a4.w2 * (-1)
+				end
+				if a4.y > (altura - 20) then
+					a4.y = (altura - 20)
+					a4.w2 = a4.w2 * (-1)
+				end
 			end
 
 
@@ -110,17 +220,17 @@ function love.load()
 			love.graphics.setColor(0, 0, 0.4)
 			love.graphics.circle("fill", button.x, button.y, button.size)
 
-			love.graphics.setColor( 0, 0.2, 0.4 )
-			love.graphics.rectangle( "fill", ClickAndLose.x, ClickAndLose.y, ClickAndLose.lado, ClickAndLose.lado)
+			love.graphics.setColor( 0, 0, 0.4 )
+			love.graphics.rectangle( "fill", a1.x, a1.y, a1.lado, a1.lado)
 
 			love.graphics.setColor(0.8, 0.7, 0)
-			love.graphics.circle( "fill",otoCircle.x, otoCircle.y, otoCircle.size)
+			love.graphics.circle( "fill",a2.x, a2.y, a2.size)
 
 			love.graphics.setColor(115, 0, 255)
-			love.graphics.circle( "fill", redondo.x, redondo.y, redondo.size)
+			love.graphics.circle( "fill", a3.x, a3.y, a3.size)
 
-			love.graphics.setColor(0, 0.1, 0.5)
-			love.graphics.rectangle( "fill", naoCirculo.x, naoCirculo.y, naoCirculo.lado, naoCirculo.lado)
+			love.graphics.setColor(0, 0, 0.4)
+			love.graphics.rectangle( "fill", a4.x, a4.y, a4.lado, a4.lado)
 		  end
 
 				love.graphics.setColor(1, 1, 1)
@@ -147,32 +257,33 @@ function love.load()
 		  if btn == 1 and start == 2 then
 				if distance(button.x, button.y, love.mouse.getX(), love.mouse.getY()) < button.size then
 				  pontuacao = pontuacao + 1
+					--timer = timer + 0.5
 
 				------ circulo Azul
 				button.x = math.random(button.size, love.graphics.getWidth() - button.size)
 				button.y = math.random(button.size, love.graphics.getHeight() - button.size)
 
 				------ quadrado
-				ClickAndLose.x = math.random(ClickAndLose.lado, love.graphics.getWidth() - ClickAndLose.lado)
-				ClickAndLose.y = math.random(ClickAndLose.lado, love.graphics.getHeight() - ClickAndLose.lado)
+				a1.x = math.random(a1.lado, love.graphics.getWidth() - a1.lado)
+				a1.y = math.random(a1.lado, love.graphics.getHeight() - a1.lado)
 
 				------ CirculoAmarelo
-				otoCircle.x = math.random(otoCircle.size, love.graphics.getWidth() - otoCircle.size)
-				otoCircle.y = math.random(otoCircle.size, love.graphics.getHeight() - otoCircle.size)
+				a2.x = math.random(a2.size, love.graphics.getWidth() - a2.size)
+				a2.y = math.random(a2.size, love.graphics.getHeight() - a2.size)
 
 				------ circulo qualquer
-				redondo.x = math.random(redondo.size, love.graphics.getWidth() - redondo.size)
-				redondo.y = math.random(redondo.size, love.graphics.getHeight() - redondo.size)
+				a3.x = math.random(a3.size, love.graphics.getWidth() - a3.size)
+				a3.y = math.random(a3.size, love.graphics.getHeight() - a3.size)
 
 				------ quadrado amarelo
-				naoCirculo.x = math.random(naoCirculo.lado, love.graphics.getWidth() - naoCirculo.lado)
-				naoCirculo.y = math.random(naoCirculo.lado, love.graphics.getHeight() - naoCirculo.lado)
+				a4.x = math.random(a4.lado, love.graphics.getWidth() - a4.lado)
+				a4.y = math.random(a4.lado, love.graphics.getHeight() - a4.lado)
 
 
-				elseif distance( ClickAndLose.x, ClickAndLose.y, love.mouse.getX(), love.mouse.getY() ) < ClickAndLose.lado or
-							distance( otoCircle.x, otoCircle.y, love.mouse.getX(), love.mouse.getY() ) < otoCircle.size or
-								distance( redondo.x, redondo.y, love.mouse.getX(), love.mouse.getY() ) < redondo.size or
-									distance( naoCirculo.x, naoCirculo.y, love.mouse.getX(), love.mouse.getY() ) < naoCirculo.lado then
+				elseif distance( a1.x, a1.y, love.mouse.getX(), love.mouse.getY() ) < a1.lado or
+							distance( a2.x, a2.y, love.mouse.getX(), love.mouse.getY() ) < a2.size or
+								distance( a3.x, a3.y, love.mouse.getX(), love.mouse.getY() ) < a3.size or
+									distance( a4.x, a4.y, love.mouse.getX(), love.mouse.getY() ) < a4.lado then
 					perder = true
 				end
 
@@ -189,10 +300,6 @@ function love.load()
 	 return math.sqrt((y2 - y1)^2 + (x2 - x1)^2)
 
 	end
-
-
-
-
 
 
 
