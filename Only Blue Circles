@@ -1,0 +1,436 @@
+function love.load()
+			
+		jogando = false
+		pontuacao = 0
+		timer = 0
+		start = 1
+		
+		musicaFundo = love.audio.newSource( 'som/music_zapsplat_blugrass_billy.mp3', 'stream' )
+		musicaFundo:setLooping( true ) --so it doesnt stop
+		musicaFundo:play()
+		musicaFundovolume = 1
+		
+		somBolha = love.audio.newSource( 'som/bolha.mp3', 'stream' )
+		somBolhavolume = 1
+		
+		--- menu
+		telaInicial = love.graphics.newImage( "imagens/menu.jpg" )
+			
+			--icons
+			botaoIniciar = love.graphics.newImage( "imagens/iniciar.png" )
+				--musica
+				music = true
+				musicon = love.graphics.newImage( "imagens/musicicon.png" )
+				musiconoff = love.graphics.newImage( "imagens/musiciconoff.png" )
+				--sound
+				sound = true
+				soundicon = love.graphics.newImage( "imagens/soundicon.png" )
+				soundiconoff = love.graphics.newImage( "imagens/soundiconoff.png" )
+			
+		---menu
+		
+		--planodefundo
+			fundo = love.graphics.newImage( "imagens/background.jpg" )
+
+		
+			--- circuloAzul
+			button = {
+				x = 400,
+				y = 200,
+				size = 100,
+				w1 = 1,
+				w2 = 1,
+				ang = 0,
+				velocidade = 350
+				}
+			---
+			
+
+
+
+			--- quadrado1
+			a1 = {
+				x = 500,
+				y = 500,
+				lado = 200,
+				w1 = 1,
+				w2 = 1,
+				}
+			---
+
+
+			--- circulo2
+			a2 = {
+				x = 900,
+				y = 100,
+				size = 100,
+				w1 = 1,
+				w2 = 1,
+				ang = 0
+			}
+			-----------------
+
+			--- circulo3
+			a3 = {
+				x = 100,
+				y = 900,
+				size = 100,
+				w1 = 1,
+				w2 = 1,
+			}
+			-------------
+
+			--- quadrado2
+			a4 = {
+				x = 300,
+				y = 300,
+				lado = 200,
+				w1 = 1,
+				w2 = 1,
+			}
+			---------------
+
+			perder = false
+			
+			--- Game Over
+			
+				gameOver = love.graphics.newImage( "imagens/gameover.jpg" )
+				dimensoes = love.graphics.newQuad(0, 0, 720, 1280, gameOver:getWidth(), gameOver:getHeight())
+				
+				--icons
+				botaoReiniciar = love.graphics.newImage( "imagens/reiniciar.png" )
+				botaoMenu = love.graphics.newImage( "imagens/gameovermenu.png" )
+					
+
+
+			font = love.graphics.newFont(40)
+			PequenaFonte = love.graphics.newFont( 20 )
+	end
+
+	function love.update(dt)
+	musicaFundo:setVolume(musicaFundovolume)
+	somBolha:setVolume(somBolhavolume)
+	local altura = love.graphics.getHeight()
+	local largura = love.graphics.getWidth()
+	
+		  if start == 2 then
+			if timer > 0 then
+			  timer = timer - dt
+			end
+
+			if timer < 0 then
+			  timer = 0
+			  start = 3
+			  perder = true
+			  jogando = false
+			end
+		  end
+
+		------ circulo
+			if pontuacao > 20 then
+				button.velocidade = 550
+			end
+			if button.x + 1 >= 100 and button.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				button.x = button.x - button.velocidade * dt * button.w1
+
+				if button.x < 100 then
+					button.x = 100
+					button.w1 = button.w1 * (-1)
+				end
+				if button.x > (largura - 100) then
+					button.x = (largura - 100)
+					button.w1 = button.w1 * (-1)
+				end
+			end
+			if button.y + 1 >= 100 and button.y -1 <= (altura - 100) then -- aqui a condição de movimento
+				button.y = button.y - button.velocidade * dt * button.w2
+
+				if button.y < 100 then
+					button.y = 100
+					button.w2 = button.w2 * (-1)
+				end
+				if button.y > (altura - 100) then
+					button.y = (altura - 100)
+					button.w2 = button.w2 * (-1)
+				end
+			end
+		--------------
+
+			-------- quadrado1
+			if a1.x + 1 >= -100 and a1.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				a1.x = a1.x - 500 * dt * a1.w1
+
+				if a1.x < -100 then
+					a1.x = -100
+					a1.w1 = a1.w1 * (-1)
+				end
+				if a1.x > (largura - 100) then
+					a1.x = (largura - 100)
+					a1.w1 = a1.w1 * (-1)
+				end
+			end
+			if a1.y + 1 >= -100 and a1.y -1 <= (altura - 100) then -- aqui a condição de movimento
+				a1.y = a1.y - 500 * dt * a1.w2
+
+				if a1.y < -100 then
+					a1.y = -100
+					a1.w2 = a1.w2 * (-1)
+				end
+				if a1.y > (altura - 100) then
+					a1.y = (altura - 100)
+					a1.w2 = a1.w2 * (-1)
+				end
+			end
+			-----------------
+
+			---------circuloAmarelo
+			if a2.x + 1 >= 100 and a2.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				a2.x = a2.x - 500 * dt * a2.w1
+
+				if a2.x < 100 then
+					a2.x = 100
+					a2.w1 = a2.w1 * (-1)
+				end
+				if a2.x > (largura - 100) then
+					a2.x = (largura - 100)
+					a2.w1 = a2.w1 * (-1)
+				end
+			end
+			if a2.y + 1 >= 20 and a2.y -1 <= (altura - 20) then -- aqui a condição de movimento
+				a2.y = a2.y - 1200 * dt * a2.w2
+
+				if a2.y < 20 then
+					a2.y = 20
+					a2.w2 = a2.w2 * (-1)
+				end
+				if a2.y > (altura - 20) then
+					a2.y = (altura - 20)
+					a2.w2 = a2.w2 * (-1)
+				end
+			end
+
+			---------circuloRosa
+			if a3.x + 1 >= 100 and a3.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				a3.x = a3.x - 500 * dt * a3.w1
+
+				if a3.x < 100 then
+					a3.x = 100
+					a3.w1 = a3.w1 * (-1)
+				end
+				if a3.x > (largura - 100) then
+					a3.x = (largura - 100)
+					a3.w1 = a3.w1 * (-1)
+				end
+			end
+			if a3.y + 1 >= 20 and a3.y -1 <= (altura - 20) then -- aqui a condição de movimento
+				a3.y = a3.y - 200 * dt * a3.w2
+
+				if a3.y < 20 then
+					a3.y = 20
+					a3.w2 = a3.w2 * (-1)
+				end
+				if a3.y > (altura - 20) then
+					a3.y = (altura - 20)
+					a3.w2 = a3.w2 * (-1)
+				end
+			end
+			
+			--------- quadrado2
+			if a4.x + 1 >= -100 and a4.x -1 <= (largura - 100) then -- aqui a condição de movimento
+				a4.x = a4.x - 500 * dt * a4.w1
+
+				if a4.x < -100 then
+					a4.x = -100
+					a4.w1 = a4.w1 * (-1)
+				end
+				if a4.x > (largura - 100) then
+					a4.x = (largura - 100)
+					a4.w1 = a4.w1 * (-1)
+				end
+			end
+			if a4.y + 1 >= -100 and a4.y -1 <= (altura - 100) then -- aqui a condição de movimento
+				a4.y = a4.y - 500 * dt * a4.w2
+
+				if a4.y < -100 then
+					a4.y = -100
+					a4.w2 = a4.w2 * (-1)
+				end
+				if a4.y > (altura - 100) then
+					a4.y = (altura - 100)
+					a4.w2 = a4.w2 * (-1)
+				end
+			end
+
+
+	end
+
+	function love.draw()
+
+		if start == 2 then
+			
+			love.graphics.draw( fundo, 0, 0, 0, 1, 1, 0, 0 )
+		 
+			love.graphics.setColor(0, 0, 0.4)
+			love.graphics.circle("fill", button.x, button.y, button.size)
+
+			love.graphics.setColor( 0, 0, 0.4 )
+			love.graphics.rectangle( "fill", a1.x, a1.y, a1.lado, a1.lado)
+
+			love.graphics.setColor(10, 240, 0)
+			love.graphics.circle( "fill",a2.x, a2.y, a2.size)
+
+			love.graphics.setColor(115, 0, 255)
+			love.graphics.circle( "fill", a3.x, a3.y, a3.size)
+
+			love.graphics.setColor(0, 0, 0.4)
+			love.graphics.rectangle( "fill", a4.x, a4.y, a4.lado, a4.lado)
+		  end
+
+				love.graphics.setColor(1, 1, 1)
+				love.graphics.setFont(font)
+				love.graphics.print("Pontos: " .. pontuacao)
+				love.graphics.print("Tempo: " .. math.ceil(timer), 250, 0)
+
+		if start == 1 then
+			love.graphics.draw( telaInicial, 0, 0, 0, 1, 1, 0, 0 )
+			love.graphics.draw( botaoIniciar, 500, 150, 0, 1, 1, 0, 0 )
+			
+			if music then
+				love.graphics.draw( musicon, 1050, 450, 0, 1, 1, 0, 0 )
+				musicaFundovolume = 1
+			else
+				love.graphics.draw( musiconoff, 1050, 450, 0, 1, 1, 0, 0 )
+				musicaFundovolume = 0
+			end
+			
+			if sound then
+				love.graphics.draw( soundicon, 1050, 550, 0, 1, 1, 0, 0 )
+				somBolhavolume = 1
+			else
+				love.graphics.draw( soundiconoff, 1050, 550, 0, 1, 1, 0, 0 )
+				somBolhavolume = 0
+			end
+
+		end
+
+
+
+		if perder and start == 3 then
+			love.graphics.draw( gameOver, 0, 0, 0, 1, 1, 0, 0 )
+			love.graphics.draw( botaoReiniciar, 330, 160, 0, 1, 1, 0, 0 )
+			love.graphics.draw( botaoMenu, 490, 480, 0, 1, 1, 0, 0 )
+			love.graphics.print(pontuacao, 850, 160)
+			
+			if music then
+				love.graphics.draw( musicon, 850, 450, 0, 1, 1, 0, 0 )
+				musicaFundovolume = 1
+			else
+				love.graphics.draw( musiconoff, 850, 450, 0, 1, 1, 0, 0 )
+				musicaFundovolume = 0
+			end
+			
+			if sound then
+				love.graphics.draw( soundicon, 850, 550, 0, 1, 1, 0, 0 )
+				somBolhavolume = 1
+			else
+				love.graphics.draw( soundiconoff, 850, 550, 0, 1, 1, 0, 0 )
+				somBolhavolume = 0
+			end
+			
+		end
+	end
+
+	function love.mousepressed(x, y, btn, istouch, presses)
+		
+		if start == 1 then
+			--botaoIniciar
+			if distance(672,322, love.mouse.getX(), love.mouse.getY()) < 172 then
+				start = 2
+				timer = 30	
+				jogando = true
+				pontuacao = 0
+			end
+			--music
+			if distance(1092,492, love.mouse.getX(), love.mouse.getY()) < 42 then
+				music = not music
+			end
+
+			--sound
+			if distance(1092,592, love.mouse.getX(), love.mouse.getY()) < 42 then
+				sound = not sound
+			end
+		end
+		
+		
+		if start == 2 and jogando then
+			if btn == 1 then
+				if distance(button.x, button.y, love.mouse.getX(), love.mouse.getY()) < button.size then
+				  pontuacao = pontuacao + 1
+					timer = timer + 0.5
+				somBolha:play()
+				------ circuloAzul
+				button.x = math.random(button.size, love.graphics.getWidth() - button.size)
+				button.y = math.random(button.size, love.graphics.getHeight() - button.size)
+
+				------ quadrado1
+				a1.x = math.random(a1.lado, love.graphics.getWidth() - a1.lado)
+				a1.y = math.random(a1.lado, love.graphics.getHeight() - a1.lado)
+
+				------ circuloAmarelo
+				a2.x = math.random(a2.size, love.graphics.getWidth() - a2.size)
+				a2.y = math.random(a2.size, love.graphics.getHeight() - a2.size)
+
+				------ circuloRosa
+				a3.x = math.random(a3.size, love.graphics.getWidth() - a3.size)
+				a3.y = math.random(a3.size, love.graphics.getHeight() - a3.size)
+
+				------ quadrado2
+				a4.x = math.random(a4.lado, love.graphics.getWidth() - a4.lado)
+				a4.y = math.random(a4.lado, love.graphics.getHeight() - a4.lado)
+
+
+				elseif distance( a1.x, a1.y, love.mouse.getX(), love.mouse.getY() ) < a1.lado or
+							distance( a2.x, a2.y, love.mouse.getX(), love.mouse.getY() ) < a2.size or
+								distance( a3.x, a3.y, love.mouse.getX(), love.mouse.getY() ) < a3.size or
+									distance( a4.x, a4.y, love.mouse.getX(), love.mouse.getY() ) < a4.lado then
+					perder = true
+					start = 3
+					jogando = false
+				end
+			end
+		end
+		
+		if start == 3 then
+			--botaoReiniciar
+			if distance(495,325, love.mouse.getX(), love.mouse.getY()) < 165 then
+				start = 2
+				perder = false
+				jogando = true
+				pontuacao = 0
+			end	
+			--botaoMenu
+			if distance(593,583, love.mouse.getX(), love.mouse.getY()) < 103 then
+				start = 1
+				perder = false
+			end
+			--music
+			if distance(892,492, love.mouse.getX(), love.mouse.getY()) < 42 then
+				music = not music
+			end
+			--sound
+			if distance(892,592, love.mouse.getX(), love.mouse.getY()) < 42 then
+				sound = not sound
+			end
+
+		end
+	end
+
+	function distance(x1, y1, x2, y2)
+
+	 return math.sqrt((y2 - y1)^2 + (x2 - x1)^2)
+
+	end
+
+
+
+
